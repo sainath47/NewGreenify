@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
-import Add_File from "../add_file/add_file";
+import AddFile from "../add_file/add_file";
 const Reading = () => {
   const [readings, setReadings] = useState([]);
   useEffect(() => {
@@ -53,7 +53,7 @@ const Reading = () => {
 
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <Add_File/>
+      <AddFile readings = {readings} setReadings={setReadings}/>
       <DataGrid
         getRowId={(row) => row._id}
         rows={rows}

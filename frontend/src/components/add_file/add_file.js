@@ -19,16 +19,17 @@ const style = {
   p: 4,
 };
 
-export default function Add_File() {
+export default function Add_File(props) {
   const [open, setOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setSelectedFile(null)
+    setOpen(true)};
   const handleClose = () => setOpen(false);
 
-  const handleSubmit = (event) => {
-    // event.preventDefault()
-
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
     if (selectedFile) {
       const fileName = selectedFile.name;
       const fileExtension = fileName.split('.').pop();
@@ -40,30 +41,34 @@ export default function Add_File() {
       }
       const formData = new FormData();
       formData.append('file', selectedFile);
-
-      fetch('http://localhost:8000/api/reading', {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => {
-          if (response.ok) {
-            // console.log(response);
-            console.log('File uploaded successfully!');
-            setOpen(false)
-            alert('File uploaded successfully!')
-            // Handle response from the backend
-            window.location.reload();
-          } else {
-            throw new Error('Error uploading file');
-          }
-        })
-        .catch(error => {
-          console.error('Error uploading file:', error);
+  
+      try {
+        const response = await fetch('http://localhost:8000/api/reading', {
+          method: 'POST',
+          body: formData
         });
-      
-    }else alert('NO FILE CHOOSEN')
+  
+        if (response.ok) {
+          let data = await response.json()
+          props.setReadings([...props.readings, ...data.data])
+          // console.log();
 
+          console.log('File uploaded successfully!');
+          setOpen(false);
+          alert('File uploaded successfully!');
+          // Handle response from the backend
+          // window.location.reload();
+        } else {
+          throw new Error('Error uploading file');
+        }
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
+    } else {
+      alert('NO FILE CHOSEN');
+    }
   };
+  
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
