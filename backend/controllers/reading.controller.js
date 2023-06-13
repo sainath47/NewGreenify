@@ -58,9 +58,9 @@ const documents = data.map(row => {
 const result = await readingModel.insertMany(documents);
    
 
-    //   console.log("Uploaded file details:", file);
+      // console.log("Uploaded file details:", result);
 
-      res.json({ message: "File uploaded successfully.", data: result });
+      res.status(201).send({ message: "File uploaded successfully.", data: result });
     }
     catch(e){
         console.log(e.message);
