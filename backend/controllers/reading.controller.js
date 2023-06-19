@@ -5,25 +5,23 @@ const xlsx = require("xlsx");
 //geting all readings
 async function getAllReading(req, res) {
   try {
-    const {houseNo, blockNo, meterSNo, startDate, endDate} = req.query // Get the formatted date from query parameters
+    let {houseNo, blockNo, meterSNo, startDate, endDate} = req.query // Get the formatted date from query parameters
 
 
 
 const query = { HOUSE_NO: houseNo, BLOCK_NO: blockNo, METER_S_NO: meterSNo };
 const filteredQuery = Object.entries(query).reduce((acc, [key, value]) => {
-  if (value !== undefined) {
+  if (value !== undefined && value !== '') {
     acc[key] = value;
   }
   return acc;
 }, {});
-
-// console.log(filteredQuery);
     //IF BOTH THE START DATE & END DATE BOTH ARE PRESENT THEN THE READING_DATE QUERY WILL RUN, WITH OTHER QUERYS IN
 
 
 if(startDate && endDate ){
-  const startDate = new Date('5/9/2023');
-  const endDate = new Date('6/1/2023');
+   startDate = new Date(startDate);
+   endDate = new Date(endDate);
   
   const formattedStartDate = `${startDate.getMonth() + 1}/${startDate.getDate()}/${startDate.getFullYear()}`;
   const formattedEndDate = `${endDate.getMonth() + 1}/${endDate.getDate()}/${endDate.getFullYear()}`;

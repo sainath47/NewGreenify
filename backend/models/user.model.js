@@ -30,6 +30,10 @@ const userSchema = new Schema({
        type: mongoose.Schema.Types.ObjectId,
         ref: 'Role' 
     },
+    meterNumbers: {
+        type: [String],
+        default: [],
+      },
 })
 
 //as we create the model, model have its own methods find findOne, create,..5,6,7,8,9,10,11,12,13,14,15,16,17
