@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user.routes')
 const readingRoutes = require('./routes/reading.routes')
+const roleRoutes = require('./routes/role.routes')
 
 require('dotenv').config();
 app.use(cors())
@@ -25,7 +26,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
   app.use("/api/user", userRoutes);
   app.use("/api/reading",readingRoutes );
-
+app.use("/api/role", roleRoutes)
 
 app.listen(8000, ()=>{
     console.log('App listening on port 8000')

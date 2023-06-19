@@ -3,7 +3,20 @@ const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema
 const validator = require('validator');
 const userSchema = new Schema({
+    firstName:{
+        type:String,
+        required: true,
+    },
+    lastName:{
+        type:String,
+        required: true,
+    },
     email:{
+        type:String,
+        required: true,
+        unique: true
+    },
+    mobileNo:{
         type:String,
         required: true,
         unique: true
@@ -12,7 +25,11 @@ const userSchema = new Schema({
         type: String,
         required: true
     }
-
+    ,
+    role:{
+       type: mongoose.Schema.Types.ObjectId,
+        ref: 'Role' 
+    },
 })
 
 //as we create the model, model have its own methods find findOne, create,..5,6,7,8,9,10,11,12,13,14,15,16,17
@@ -21,9 +38,9 @@ const userSchema = new Schema({
 
 
 //static register method
-userSchema.statics.register = async function(email, password){
+userSchema.statics.register = async function(firstName,lastName, email, password, mobileNo){
 //validation 
-if(!email || !password){
+if(!email || !password || !firstName|| !lastName || !mobileNo){
     throw Error ('All fields must be filled')
 }
 
@@ -45,8 +62,7 @@ if(!validator.isStrongPassword(password)){
    const salt = await bcrypt.genSalt(10)
    const hash = await bcrypt.hash(password,salt)
 
-const user = await this.create({email, password: hash})
-
+const user = await this.create({firstName,lastName, mobileNo,email, password: hash})
 return user
 }
 
@@ -56,7 +72,7 @@ userSchema.statics.login = async function(email, password) {
         throw Error ('All fields must be filled')
     }
 
-    const user = await this.findOne({email})
+    const user = await this.findOne({email}).populate('role')
 
     if(!user){
         throw Error('Incorrect email')

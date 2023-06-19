@@ -2,6 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const readingSchema = new Schema(
   {
+    HOUSE_NO: {
+      type: String,
+      required: true,
+    },
+    BLOCK_NO: {
+      type: String,
+      required: true,
+    },
     READING: {
       type: Number,
       required: true,
@@ -10,12 +18,8 @@ const readingSchema = new Schema(
       type: String,
       required: true,
     },
-    HOUSE_NO: {
-      type: String,
-      required: true,
-    },
-    BLOCK_NO: {
-      type: String,
+    METER_S_NO: {
+      type: Number,
       required: true,
     },
   },

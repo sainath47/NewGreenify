@@ -1,31 +1,29 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./login.css";
-import {useLogin} from '../../hooks/useLogin';
+import { useLogin } from "../../hooks/useLogin";
 
 const Login = () => {
   const [input, setInput] = useState({
-    emailOrMobileNumber:"",
+    emailOrMobileNumber: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
 
-  const {login, error, isLoading} = useLogin()
+  const { login, error, isLoading } = useLogin();
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const handelSubmit = async () => {
+    try {
+      // console.log(input, "godInput");
 
- const handelSubmit =async()=>{
-    try{
-// console.log(input, "godInput");
-
-await  login(input.emailOrMobileNumber, input.password)
-
-    }catch(err){
-// console.log(err);
+      await login(input.emailOrMobileNumber, input.password);
+    } catch (err) {
+      // console.log(err);
     }
- }
+  };
 
   return (
     <div className="mainContainer">
@@ -42,30 +40,34 @@ await  login(input.emailOrMobileNumber, input.password)
                 setInput({ ...input, emailOrMobileNumber: e.target.value })
               }
             />
-            <label>Email or Mobile Number</label>
+            <label>Email</label>
           </div>
           <div className="inputs">
-            <input
-                    type={showPassword ? "text" : "password"}
-              required
-              onChange={(e) => setInput({ ...input, password: e.target.value })}
-            />
-            
-            <label>Password</label>      <button
-             style={{
-              background: "#3bb19b",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "2px",
-              borderRadius: "5px",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-            
-            onClick={handleTogglePassword}>
-        {showPassword ? "Hide" : "Show"}
-      </button>
+            <div className="flex">
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                onChange={(e) =>
+                  setInput({ ...input, password: e.target.value })
+                }
+              />
+              <label>Password</label>{" "}
+              <button
+                style={{
+                  background: "#3bb19b",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "2px",
+                  borderRadius: "5px",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+                onClick={handleTogglePassword}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
           </div>
           <div
             style={{

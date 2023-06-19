@@ -16,9 +16,9 @@ const SignUp = () => {
 
   const handelSubmit = async (e) => {
     e.preventDefault();
-    await register(input.email, input.password)
-
-
+    const {  firstName, lastName,email,mobileNumber, password,  confirmPassword } = input;
+    if(password !== confirmPassword) alert('confirm password not matching')
+    await register(firstName, lastName ,email,mobileNumber, password )
   };
 
   return (
@@ -76,6 +76,16 @@ const SignUp = () => {
                 }
               />
               <label>Password</label>
+            </div>
+            <div className="inputs">
+              <input
+                type="password"
+                required
+                onChange={(e) =>
+                  setInput({ ...input, confirmPassword: e.target.value })
+                }
+              />
+              <label>Confirm Password</label>
             </div>
             <div
               style={{
