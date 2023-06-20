@@ -1,5 +1,6 @@
 const readingModel = require("../models/reading.model");
 const xlsx = require("xlsx");
+const fs = require('fs')
 //storing all the readings
 
 //geting all readings
@@ -97,6 +98,8 @@ async function uploadReadings(req, res) {
     const result = await readingModel.insertMany(documents);
 
     // console.log("Uploaded file details:", result);
+        // Delete the file after use
+        fs.unlinkSync(filePath);
 
     res
       .status(201)
