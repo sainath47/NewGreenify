@@ -71,8 +71,8 @@ try{
   setLoading(true);
   // console.log(date);
   const { startDate, endDate, houseNo, blockNo, meterSNo } = filters;
-  console.log( {startDate, endDate, houseNo, blockNo, meterSNo  });
-console.log(startDate, endDate);
+//   console.log( {startDate, endDate, houseNo, blockNo, meterSNo  });
+// console.log(startDate, endDate);
 
 function formatDate(dateString) {
 const date = new Date(dateString);
@@ -163,6 +163,7 @@ finally{
             <input
               className=" border-2 rounded-md border-black"
               type="text"
+              value={filters.houseNo}
               onChange={(e) =>
                 setFilters({ ...filters, houseNo: e.target.value })
               }
@@ -173,6 +174,7 @@ finally{
             <input
               className=" border-2 rounded-md border-black"
               type="text"
+              value={filters.blockNo}
               onChange={(e) =>
                 setFilters({ ...filters, blockNo: e.target.value })
               }
@@ -183,6 +185,7 @@ finally{
             <input
               className=" border-2 rounded-md border-black"
               type="number"
+              value={filters.meterSNo}
               onChange={(e) =>
                 setFilters({ ...filters, meterSNo: e.target.value })
               }
