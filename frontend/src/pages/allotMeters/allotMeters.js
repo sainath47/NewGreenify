@@ -1,21 +1,18 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
-import AddFile from "../add_file/add_file";
-import ExportFile from "../../export_file";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 
-const Reading = () => {
-  const [readings, setReadings] = useState([]);
+const AllotMeters = () => {
+  //   const [readings, setReadings] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [filters, setFilters] = useState({
-    startDate: "",
-    endDate: "",
-    houseNo: "",
-    blockNo: "",
-    meterSNo: "",
-  });
+  //   const [filters, setFilters] = useState({
+  //     startDate: "",
+  //     endDate: "",
+  //     houseNo: "",
+  //     blockNo: "",
+  //     meterSNo: "",
+  //   });
 
   useEffect(() => {
     fetchData();
@@ -23,16 +20,13 @@ const Reading = () => {
 
   const fetchData = async () => {
     try {
-      setLoading(true)
       // Fetch data from the API
       const response = await fetch("http://localhost:8000/api/reading");
       const data = await response.json();
       // Set the fetched data to the component state
       // console.log(data);
-      setReadings(data.data);
-      setLoading(false)
+      //   setReadings(data.data);
     } catch (error) {
-      setLoading(false)
       console.error("Error fetching data:", error);
     }
   };
@@ -68,13 +62,13 @@ const Reading = () => {
     },
   ];
 
-  const rows = readings;
+  //   const rows = readings;
 
   const handleSearch = async () => {
     try {
       setLoading(true);
       // console.log(date);
-      const { startDate, endDate, houseNo, blockNo, meterSNo } = filters;
+    //   const { startDate, endDate, houseNo, blockNo, meterSNo } = filters;
       //   console.log( {startDate, endDate, houseNo, blockNo, meterSNo  });
       // console.log(startDate, endDate);
 
@@ -86,17 +80,17 @@ const Reading = () => {
 
         return `${month}/${day}/${year}`;
       }
-      const sD = formatDate(startDate);
+    //   const sD = formatDate(startDate);
 
-      const eD = formatDate(endDate);
+    //   const eD = formatDate(endDate);
 
       // console.log(sD, eD, 'startDate', 'endDate'); // Output: "6/4/2023"
-      const response =
-        await fetch(`http://localhost:8000/api/reading?startDate=${sD}&endDate=${eD}&houseNo=${houseNo}&blockNo=${blockNo}&meterSNo=${meterSNo}
-      `);
-      const data = await response.json();
-      console.log(data, "data after search");
-      setReadings(data.data);
+    //   const response =
+    //     await fetch(`http://localhost:8000/api/reading?startDate=${sD}&endDate=${eD}&houseNo=${houseNo}&blockNo=${blockNo}&meterSNo=${meterSNo}
+    //   `);
+    //   const data = await response.json();
+    //   console.log(data, "data after search");
+    //   setReadings(data.data);
     } catch (error) {
       alert(error);
     } finally {
@@ -104,32 +98,32 @@ const Reading = () => {
     }
   };
 
-  const handleStartDateChange = (event) => {
-    const newStartDate = event.target.value;
-    const { endDate } = filters;
-    // Check if newStartDate is less than endDate
-    if (!endDate || new Date(newStartDate) < new Date(endDate)) {
-      setFilters({ ...filters, startDate: newStartDate });
-    }
-  };
+  //   const handleStartDateChange = (event) => {
+  //     const newStartDate = event.target.value;
+  //     const { endDate } = filters;
+  //     // Check if newStartDate is less than endDate
+  //     if (!endDate || new Date(newStartDate) < new Date(endDate)) {
+  //       setFilters({ ...filters, startDate: newStartDate });
+  //     }
+  //   };
 
-  const handleEndDateChange = (event) => {
-    const newEndDate = event.target.value;
-    const { startDate } = filters;
-    // Check if newEndDate is greater than startDate
-    if (!startDate || new Date(newEndDate) >= new Date(startDate)) {
-      setFilters({ ...filters, endDate: newEndDate });
-    } else alert("End-Date Should Be Greater Than Start-Date");
-  };
+  //   const handleEndDateChange = (event) => {
+  //     const newEndDate = event.target.value;
+  //     const { startDate } = filters;
+  //     // Check if newEndDate is greater than startDate
+  //     if (!startDate || new Date(newEndDate) >= new Date(startDate)) {
+  //       setFilters({ ...filters, endDate: newEndDate });
+  //     } else alert("End-Date Should Be Greater Than Start-Date");
+  //   };
 
   const handleClear = () => {
-    setFilters({
-      startDate: "",
-      endDate: "",
-      houseNo: "",
-      blockNo: "",
-      meterSNo: "",
-    });
+    // setFilters({
+    //   startDate: '',
+    //   endDate: '',
+    //   houseNo: '',
+    //   blockNo: '',
+    //   meterSNo: ''
+    // });
   };
 
   //if user have permission to add reading then only the button of add reading will be visible
@@ -139,7 +133,7 @@ const Reading = () => {
     user?.permissions?.includes("AddReadings") ?? false;
   return (
     <div style={{ height: "78vh", width: "100%" }}>
-      <div className="flex-wrap">
+      {/* <div className="flex-wrap">
         <div className="flex">
           <div>
             <label>Start Date:</label>
@@ -194,8 +188,8 @@ const Reading = () => {
             />
           </div>
         </div>
-      </div>
-      <div className="flex pt-4 ml-auto">
+      </div> */}
+      {/* <div className="flex pt-4 ml-auto">
         <Button variant="contained" onClick={handleSearch}>
           Search
         </Button>
@@ -204,17 +198,15 @@ const Reading = () => {
             Clear
           </Button>
         </div>
-      </div>
-      <div className="flex">
-        <ExportFile readings={readings} />
-        {addReadingsPermission && (
-          <AddFile readings={readings} setReadings={setReadings} />
-        )}
-        <Link className="pt-4 pl-4" to="/allot-meters"><Button variant="contained">AllotMeters</Button></Link>
-        
-      </div>
+      </div> */}
+      {/* <div className="flex">
+<ExportFile readings={readings} />
+      {addReadingsPermission && (
+        <AddFile readings={readings} setReadings={setReadings} />
+      )}
+</div> */}
 
-      {readings && !loading && (
+      {/* {readings && !loading && (
         <DataGrid
           getRowId={(row) => row["_id"]}
           rows={rows}
@@ -227,15 +219,15 @@ const Reading = () => {
           pageSizeOptions={[5, 10]}
           checkboxSelection
         />
-      )}
-      {!readings && (
+      )} */}
+      {/* {!readings && (
         <div className="flex align-middle justify-center">
           No Data Corresponding
         </div>
-      )}
-      {loading && <div>Loading...</div>}
+      )} */}
+      {/* {loading && <div>Loading...</div>} */}
     </div>
   );
 };
 
-export default Reading;
+export default AllotMeters;
