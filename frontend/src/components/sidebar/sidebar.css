@@ -1,15 +1,13 @@
 .sidebar {
     position: relative;
     width: 200px;
-    background-color: #f0f0f0;
     transition: transform 0.3s ease-in-out;
     z-index: 100;
-    height: full;
+    height: 104vh;
+    display: block;
   }
   
-  .sidebar.open {
-    transform: translateX(0);
-  }
+
   
   .sidebar ul {
     list-style: none;
@@ -21,17 +19,13 @@
     margin-bottom: 10px;
   }
   
-  .toggle-button {
-    display: none;
-  }
+
   
   @media (max-width: 768px) {
     .sidebar {
-      transform: translateX(-100%);
+     display: none;
     }
   
-    .toggle-button {
-      display: block;
-    }
+
   }
   
