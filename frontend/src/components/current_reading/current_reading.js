@@ -23,16 +23,16 @@ const Reading = () => {
 
   const fetchData = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       // Fetch data from the API
       const response = await fetch("http://localhost:8000/api/reading");
       const data = await response.json();
       // Set the fetched data to the component state
       // console.log(data);
       setReadings(data.data);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.error("Error fetching data:", error);
     }
   };
@@ -210,8 +210,6 @@ const Reading = () => {
         {addReadingsPermission && (
           <AddFile readings={readings} setReadings={setReadings} />
         )}
-        <Link className="pt-4 pl-4" to="/allot-meters"><Button variant="contained">AllotMeters</Button></Link>
-        
       </div>
 
       {readings && !loading && (

@@ -19,7 +19,10 @@ function Sidebar() {
           <li>Dashboard</li>
         </Link>
         <Link className="pt-4 pl-4" to="/allot-meters">
-          <li>UserManagment</li>
+          <li>Allot Meters</li>
+        </Link>
+        <Link className="pt-4 pl-4" to="/user-management">
+          <li>User Management</li>
         </Link>
       </ul>
       {/* <button className="toggle-button" onClick={toggleSidebar}>

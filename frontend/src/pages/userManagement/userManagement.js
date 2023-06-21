@@ -2,9 +2,11 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import AddMeterNos from "../../components/add_meter_numbers/add_meter_numbers";
+import UserEditModal from "../../components/user_edit_modal/user_edit_modal";
 
-const AllotMeters = () => {
+// UserEditModal
+
+const UserManagement = () => {
     const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   //   const [filters, setFilters] = useState({
@@ -43,7 +45,7 @@ const AllotMeters = () => {
     //   type: "number",
     //   width: 220,
     // },
-    {
+       {
       field: "Allot Meters",
       headerName: "Action",
       width: 140,
@@ -55,7 +57,7 @@ const AllotMeters = () => {
         // };
   
         return (
-<AddMeterNos id={params.id}/>
+<UserEditModal/>
         );
       },
     },
@@ -143,13 +145,13 @@ const AllotMeters = () => {
           }}
           pageSizeOptions={[5, 10]}
           checkboxSelection
-          
         />
     </div>
   );
 };
 
-export default AllotMeters;
+export default UserManagement;
 //i will be changing the names of the files accordingly after
 //each user will be having update profile option(where we have option to allot them meters too) & this one will have option to update name & now assign role also
+
 //allot meters will be different option in the sidebar(which will allot meters to the users)
