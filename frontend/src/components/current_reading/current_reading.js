@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import AddFile from "../add_file/add_file";
 import ExportFile from "../../export_file";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Reading = () => {
   const [readings, setReadings] = useState([]);
@@ -25,7 +25,15 @@ const Reading = () => {
     try {
       setLoading(true);
       // Fetch data from the API
-      const response = await fetch("http://localhost:8000/api/reading");
+      const user = JSON.parse(localStorage.getItem("user"));
+const permissions = user?.permissions;
+const email = user?.email;
+let ReadAllReadings = false 
+if(permissions.includes('ReadAllReadings')) ReadAllReadings = true
+const url = `http://localhost:8000/api/reading?ReadAllReadings=${ReadAllReadings}&email=${email}`;
+
+const response = await fetch(url);
+
       const data = await response.json();
       // Set the fetched data to the component state
       // console.log(data);
@@ -89,6 +97,8 @@ const Reading = () => {
       const sD = formatDate(startDate);
 
       const eD = formatDate(endDate);
+
+      
 
       // console.log(sD, eD, 'startDate', 'endDate'); // Output: "6/4/2023"
       const response =
@@ -237,3 +247,4 @@ const Reading = () => {
 };
 
 export default Reading;
+

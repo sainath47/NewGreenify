@@ -16,7 +16,7 @@ function Sidebar() {
     >
       <ul>
         <Link className="pt-4 pl-4" to="/dashboard">
-          <li>Dashboard</li>
+          <li>Readings</li>
         </Link>
         <Link className="pt-4 pl-4" to="/allot-meters">
           <li>Allot Meters</li>
@@ -24,6 +24,9 @@ function Sidebar() {
         <Link className="pt-4 pl-4" to="/user-management">
           <li>User Management</li>
         </Link>
+        {/* <Link className="pt-4 pl-4" to="/role-management">
+          <li>Role Management</li>
+        </Link> */}
       </ul>
       {/* <button className="toggle-button" onClick={toggleSidebar}>
         {isSidebarOpen ? 'Close Sidebar' : 'Open Sidebar'}

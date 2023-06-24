@@ -3,11 +3,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import UserEditModal from "../../components/user_edit_modal/user_edit_modal";
+import RoleEditModal from "../../components/role_edit_modal/role_edit_modal";
 
 // UserEditModal
 
-const UserManagement = () => {
-    const [users, setUsers] = useState([]);
+const RoleManagement = () => {
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   //   const [filters, setFilters] = useState({
   //     startDate: "",
@@ -24,11 +25,11 @@ const UserManagement = () => {
   const fetchData = async () => {
     try {
       // Fetch data from the API
-      const response = await fetch("http://localhost:8000/api/user");
+      const response = await fetch("http://localhost:8000/api/role");
       const data = await response.json();
       // Set the fetched data to the component state
       // console.log(data.data);
-        setUsers(data.data);
+      setUsers(data.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -37,15 +38,13 @@ const UserManagement = () => {
   const columns = [
     // { field: '_id', headerName: 'ID', width: 70 },
     { field: "name", headerName: "Name", width: 130 },
-    { field: "email", headerName: "Email", width: 200 },
-  
     // {
     //   field: "createdAt",
     //   headerName: "CREATED_AT",
     //   type: "number",
     //   width: 220,
     // },
-       {
+    {
       field: "Allot Meters",
       headerName: "Action",
       width: 140,
@@ -55,21 +54,21 @@ const UserManagement = () => {
         //   // handle button click event
         //   console.log("Button clicked for row with ID:", params.id);
         // };
-  
+
         return (
-<UserEditModal firstName={params.row.firstName} lastName={params.row.lastName} id={params.row._id}/>
+<RoleEditModal/>
         );
       },
     },
   ];
 
-    const rows = users;
+  const rows = users;
 
   const handleSearch = async () => {
     try {
       setLoading(true);
       // console.log(date);
-    //   const { startDate, endDate, houseNo, blockNo, meterSNo } = filters;
+      //   const { startDate, endDate, houseNo, blockNo, meterSNo } = filters;
       //   console.log( {startDate, endDate, houseNo, blockNo, meterSNo  });
       // console.log(startDate, endDate);
 
@@ -81,17 +80,17 @@ const UserManagement = () => {
 
         return `${month}/${day}/${year}`;
       }
-    //   const sD = formatDate(startDate);
+      //   const sD = formatDate(startDate);
 
-    //   const eD = formatDate(endDate);
+      //   const eD = formatDate(endDate);
 
       // console.log(sD, eD, 'startDate', 'endDate'); // Output: "6/4/2023"
-    //   const response =
-    //     await fetch(`http://localhost:8000/api/reading?startDate=${sD}&endDate=${eD}&houseNo=${houseNo}&blockNo=${blockNo}&meterSNo=${meterSNo}
-    //   `);
-    //   const data = await response.json();
-    //   console.log(data, "data after search");
-    //   setReadings(data.data);
+      //   const response =
+      //     await fetch(`http://localhost:8000/api/reading?startDate=${sD}&endDate=${eD}&houseNo=${houseNo}&blockNo=${blockNo}&meterSNo=${meterSNo}
+      //   `);
+      //   const data = await response.json();
+      //   console.log(data, "data after search");
+      //   setReadings(data.data);
     } catch (error) {
       alert(error);
     } finally {
@@ -134,23 +133,23 @@ const UserManagement = () => {
     user?.permissions?.includes("AddReadings") ?? false;
   return (
     <div style={{ height: "78vh", width: "100%" }}>
-         <DataGrid
-          getRowId={(row) => row["_id"]}
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-        />
+      <DataGrid
+        getRowId={(row) => row["_id"]}
+        rows={rows}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 10 },
+          },
+        }}
+        pageSizeOptions={[5, 10]}
+        checkboxSelection
+      />
     </div>
   );
 };
 
-export default UserManagement;
+export default RoleManagement;
 //i will be changing the names of the files accordingly after
 //each user will be having update profile option(where we have option to allot them meters too) & this one will have option to update name & now assign role also
 

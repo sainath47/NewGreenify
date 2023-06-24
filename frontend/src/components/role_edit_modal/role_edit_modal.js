@@ -18,7 +18,7 @@ const style = {
 
 };
 
-export default function UserEditModal(props) {
+export default function RoleEditModal(props) {
   const [open, setOpen] = React.useState(false);
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
@@ -98,33 +98,8 @@ event.stopPropagation()
       >
         <Box sx={style}>
           <Stack direction="column" spacing={2}>
-            <Typography>Edit User</Typography>
-            <input
-              type="text"
-              placeholder="First Name"
-              className="border-2 rounded-md border-black"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              className="border-2 rounded-md border-black"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <select
-              className="border-2 rounded-md border-black"
-              value={selectedRole}
-              onChange={(e) => setSelectedRole(e.target.value)}
-            >
-              <option value="">Select Role</option>
-              {roles.map((role) => (
-                <option key={role._id} value={role._id}>
-                  {role.name}
-                </option>
-              ))}
-            </select>
+            <Typography>Edit Role</Typography>
+          
             <Stack direction="row" spacing={2}>
               <Button variant="contained" onClick={handleSubmit}>
                 Submit
@@ -144,4 +119,7 @@ event.stopPropagation()
   );
 }
 //role management(all role will be accumulated & permissions are editable, can create a role)
-/*user management(all users are accumulated & role can be edited, so providing the dropdown, which will fetch all the role which are present & ) **/
+//all permission are accumulated to one place in a form of array(this will be also dynamic & will be taken from highest authority super-admin), this array will be shown & the selected checkboxes will form a array & that array will be appended to the role
+//EDIT ROLE , permissions can be edited & name can be edited , same name can cause conflict, so will provide validation, using regex(capital or small should not effect) 
+
+//the object id of the particular role is assigned to the user

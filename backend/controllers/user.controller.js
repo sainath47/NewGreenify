@@ -10,10 +10,10 @@ async function login(req, res) {
   const { email, password } = req.body;
   try {
     const user = await userModel.login(email, password);
-    // console.log(user, 'userrrrrrrrr');
+    // console.log(user, "userrrrrrrrr");
     //create a token
     const token = createToken(user._id);
-    const permissions = user?.role?.permissions;
+    const permissions = user?.role?.permissions ?? [] ;
     const response = { email, token, permissions };
     res.status(200).json({ ...response });
   } catch (e) {
@@ -45,8 +45,6 @@ async function register(req, res) {
   }
 }
 
-
-
 async function getAllUsers(req, res) {
   try {
     // const users = await userModel.find()
@@ -56,6 +54,8 @@ async function getAllUsers(req, res) {
           name: { $concat: ["$firstName", " ", "$lastName"] },
           email: 1,
           mobileNo: 1,
+          firstName: 1,
+          lastName: 1,
           // Include other fields you need
         },
       },
@@ -66,66 +66,69 @@ async function getAllUsers(req, res) {
   }
 }
 
-
 const updateUser = async (req, res) => {
-    const { id } = req.params;
-    const { firstName, lastName, email, mobileNo, password, meterNumbers } = req.body;
-  
-    try {
-      // Check if user exists
-      const user = await userModel.findById(id);
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
+  const { id } = req.params;
+  const { firstName, lastName, email, mobileNo, password, meterNumbers, role } =
+    req.body;
+
+  try {
+    // Check if user exists
+    const user = await userModel.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update user fields if they are provided
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
+    if (email) user.email = email;
+    if (mobileNo) user.mobileNo = mobileNo;
+    if (password) user.password = password;
+    if (role) user.role = role;
+    if (meterNumbers) {
+      // Read the .xlsx file
+      if (!req.file) {
+        return res.status(400).json({ message: "No files were uploaded." });
       }
-  
-      // Update user fields if they are provided
-      if (firstName) user.firstName = firstName;
-      if (lastName) user.lastName = lastName;
-      if (email) user.email = email;
-      if (mobileNo) user.mobileNo = mobileNo;
-      if (password) user.password = password;
-      if (meterNumbers){
-            // Read the .xlsx file
-            if (!req.file) {
-                return res.status(400).json({ message: "No files were uploaded." });
-              }
-              const file = req.file;
-              // Validate file type
-              if (
-                file.mimetype !==
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-              ) {
-                return res
-                  .status(400)
-                  .json({ message: "Please upload a valid XLSX file." });
-              }
-              const filePath = file.path;
-    const workbook = xlsx.readFile(filePath);
-    const sheetName = workbook.SheetNames[0];
-    const worksheet = workbook.Sheets[sheetName];
+      const file = req.file;
+      // Validate file type
+      if (
+        file.mimetype !==
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      ) {
+        return res
+          .status(400)
+          .json({ message: "Please upload a valid XLSX file." });
+      }
+      const filePath = file.path;
+      const workbook = xlsx.readFile(filePath);
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
 
-    // Extract the meter numbers from the worksheet
-    const meterNumbers = xlsx.utils.sheet_to_json(worksheet, { header: "METER_NOS" })
-      .map((row) => row["METER_NOS"]);
+      // Extract the meter numbers from the worksheet
+      const meterNumbers = xlsx.utils
+        .sheet_to_json(worksheet, { header: "METER_NOS" })
+        .map((row) => row["METER_NOS"]);
+      // Assign the meter numbers to the user
+      user.meterNumbers = meterNumbers;
+      //adding meter no.s to corrsponding user, & that user can see only those readings
+      user.meterNumbers = meterNumbers;
 
-      console.log(meterNumbers, "meterNumbers");
-    // Assign the meter numbers to the user
-    user.meterNumbers = meterNumbers;
-        //adding meter no.s to corrsponding user, & that user can see only those readings
-        user.meterNumbers = meterNumbers;
-    
-        fs.unlinkSync(filePath);
+      fs.unlinkSync(filePath);
     }
 
-      // Save the updated user
-      const updatedUser = await user.save();
-  
-      res.status(200).json({ message: "User updated successfully", user: updatedUser });
-    } catch (error) {
-        console.log(error.message);
-      res.status(500).json({ message: "Error updating user", error: error.message });
-    }
-  };
-  
+    // Save the updated user
+    const updatedUser = await user.save();
+
+    res
+      .status(200)
+      .json({ message: "User updated successfully", user: updatedUser });
+  } catch (error) {
+    console.log(error.message);
+    res
+      .status(500)
+      .json({ message: "Error updating user", error: error.message });
+  }
+};
 
 module.exports = { login, register, getAllUsers, updateUser };
