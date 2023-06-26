@@ -24,15 +24,16 @@ const Reading = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      // Fetch data from the API
-      const user = JSON.parse(localStorage.getItem("user"));
-const permissions = user?.permissions;
-const email = user?.email;
-let ReadAllReadings = false 
-if(permissions.includes('ReadAllReadings')) ReadAllReadings = true
-const url = `http://localhost:8000/api/reading?ReadAllReadings=${ReadAllReadings}&email=${email}`;
 
-const response = await fetch(url);
+      const user = JSON.parse(localStorage.getItem("user"));
+      const permissions = user?.permissions;
+      const email = user?.email;
+      let ReadAllReadings = false;
+      if (permissions.includes("ReadAllReadings")) ReadAllReadings = true;
+      // Fetch data from the API
+      const url = `http://localhost:8000/api/reading?ReadAllReadings=${ReadAllReadings}&email=${email}`;
+
+      const response = await fetch(url);
 
       const data = await response.json();
       // Set the fetched data to the component state
@@ -97,8 +98,6 @@ const response = await fetch(url);
       const sD = formatDate(startDate);
 
       const eD = formatDate(endDate);
-
-      
 
       // console.log(sD, eD, 'startDate', 'endDate'); // Output: "6/4/2023"
       const response =
@@ -247,4 +246,3 @@ const response = await fetch(url);
 };
 
 export default Reading;
-

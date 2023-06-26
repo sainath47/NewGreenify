@@ -5,7 +5,7 @@ const {addRole,getRoles,updateRole,deleteRole}= require("../controllers/role.con
 
 router.post("/",addRole);
 router.get('/',getRoles);
-router.put("/",updateRole);
-router.delete("/",deleteRole);
+router.put("/:id",updateRole);
+router.delete("/:id",deleteRole);
 
 module.exports = router
