@@ -6,8 +6,8 @@ const userRoutes = require('./routes/user.routes')
 const readingRoutes = require('./routes/reading.routes')
 const roleRoutes = require('./routes/role.routes')
 const path = require('path');
-const _dirname = path.dirname("")
-const buildPath = path.join(_dirname, "../frontend/build")
+// const __dirname = path.dirname("")
+const buildPath = path.join(__dirname, "../frontend/build")
 
 require('dotenv').config();
 app.use(cors())
@@ -35,7 +35,7 @@ app.use("/api/role", roleRoutes)
 app.use(express.static(buildPath))
 app.get("/*", function(req,res){
   res.sendFile(
-    path.join(_dirname, "../frontend/build/index.html"),
+    path.join(__dirname, "../frontend/build/index.html"),
     function(err){
       if(err){
         res.status(500).send(err)
