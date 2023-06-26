@@ -145,6 +145,7 @@ const RoleManagement = () => {
         pageSizeOptions={[5, 10]}
         checkboxSelection
       />
+        {loading && <div>Loading...</div>}
     </div>
   );
 };

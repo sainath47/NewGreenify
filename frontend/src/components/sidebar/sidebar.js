@@ -7,14 +7,12 @@ function Sidebar() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-
   const user = JSON.parse(localStorage.getItem("user"));
   const permissions = user?.permissions;
-  const allotMeters = permissions?.includes("AllotMeters") || false
+  const allotMeters = permissions?.includes("AllotMeters") || false;
 
-  const userManagement = permissions?.includes("UserManagement") || false
-
-
+  const userManagement = permissions?.includes("UserManagement") || false;
+  const roleManagement = permissions?.includes("RoleManagement") || false;
   return (
     <div
       className={`sidebar ${
@@ -36,9 +34,11 @@ function Sidebar() {
           </Link>
         )}
 
-        {/* <Link className="pt-4 pl-4" to="/role-management">
-          <li>Role Management</li>
-        </Link> */}
+        {/* {roleManagement && (
+          <Link className="pt-4 pl-4" to="/role-management">
+            <li>Role Management</li>
+          </Link>
+        )} */}
       </ul>
       {/* <button className="toggle-button" onClick={toggleSidebar}>
         {isSidebarOpen ? 'Close Sidebar' : 'Open Sidebar'}
@@ -46,6 +46,8 @@ function Sidebar() {
     </div>
   );
 }
+
+
 
 export default Sidebar;
 //the sidebar will not go anywhere, no special effects in pc screen, but as soon as you go to the mobile screen

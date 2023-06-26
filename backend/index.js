@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/user.routes')
 const readingRoutes = require('./routes/reading.routes')
 const roleRoutes = require('./routes/role.routes')
+const path = require('path');
+const _dirname = path.dirname("")
+const buildPath = path.join(_dirname, "../frontend/build")
 
 require('dotenv').config();
 app.use(cors())
@@ -28,7 +31,19 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   app.use("/api/reading",readingRoutes );
 app.use("/api/role", roleRoutes)
 
-const port = process.env.PORT
+
+app.use(express.static(buildPath))
+app.get("/*", function(req,res){
+  res.sendFile(
+    path.join(_dirname, "../frontend/build/index.html"),
+    function(err){
+      if(err){
+        res.status(500).send(err)
+      }
+    }
+  )
+})
+const port = process.env.PORT || 8000
 
 app.listen(port, ()=>{
     console.log(`App listening on port ${port}` )

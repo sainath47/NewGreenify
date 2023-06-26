@@ -24,12 +24,16 @@ const UserManagement = () => {
   const fetchData = async () => {
     try {
       // Fetch data from the API
+      setLoading(true)
       const response = await fetch("http://localhost:8000/api/user");
       const data = await response.json();
       // Set the fetched data to the component state
       // console.log(data.data);
         setUsers(data.data);
+        setLoading(false)
+
     } catch (error) {
+      setLoading(false)
       console.error("Error fetching data:", error);
     }
   };
@@ -146,6 +150,7 @@ const UserManagement = () => {
           pageSizeOptions={[5, 10]}
           checkboxSelection
         />
+          {loading && <div>Loading...</div>}
     </div>
   );
 };

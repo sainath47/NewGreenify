@@ -32,7 +32,7 @@ const Reading = () => {
       if (permissions.includes("ReadAllReadings")) ReadAllReadings = true;
       // Fetch data from the API
       const url = `http://localhost:8000/api/reading?ReadAllReadings=${ReadAllReadings}&email=${email}`;
-
+setLoading(true)
       const response = await fetch(url);
 
       const data = await response.json();
