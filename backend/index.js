@@ -28,6 +28,8 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   app.use("/api/reading",readingRoutes );
 app.use("/api/role", roleRoutes)
 
-app.listen(8000, ()=>{
-    console.log('App listening on port 8000')
+const port = process.env.PORT
+
+app.listen(port, ()=>{
+    console.log(`App listening on port ${port}` )
 })
