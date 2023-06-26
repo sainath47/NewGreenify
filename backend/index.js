@@ -10,7 +10,7 @@ const path = require('path');
 const buildPath = path.join(__dirname, "../frontend/build")
 
 require('dotenv').config();
-app.use(cors())
+app.use(cors({ origin: '*' }))
 app.use(express.json())
 
 const mongoURI = process.env.MONGODB_URI
