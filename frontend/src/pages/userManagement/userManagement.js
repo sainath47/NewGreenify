@@ -25,7 +25,7 @@ const UserManagement = () => {
     try {
       // Fetch data from the API
       setLoading(true)
-      const response = await fetch("http://localhost:8000/api/user");
+      const response = await fetch("api/user");
       const data = await response.json();
       // Set the fetched data to the component state
       // console.log(data.data);
