@@ -28,7 +28,7 @@ export default function UserEditModal(props) {
   const fetchRoles = async() => {
     // Fetch roles from the database and update the 'roles' state
     // Example: API call or data retrieval from a database
-    const response = await fetch("http://localhost:8000/api/role");
+    const response = await fetch("api/role");
     const data = await response.json();
     // console.log(data.data);
     setRoles(data.data);
@@ -52,7 +52,7 @@ event.stopPropagation()
     // console.log("Last Name:", lastName);
     // console.log("Selected Role:", selectedRole);
     try {
-      const response = await fetch(`http://localhost:8000/api/user/${props.id}`, {
+      const response = await fetch(`api/user/${props.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

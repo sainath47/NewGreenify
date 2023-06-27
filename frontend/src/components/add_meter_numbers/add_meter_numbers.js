@@ -47,7 +47,7 @@ export default function AddMeterNos(props) {
       
 
       try {
-        const response = await fetch(`http://localhost:8000/api/user/${props.id}`, {
+        const response = await fetch(`api/user/${props.id}`, {
           method: "PUT",
           body: formData,
         });

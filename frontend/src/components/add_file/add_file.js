@@ -44,7 +44,7 @@ export default function Add_File(props) {
       formData.append("file", selectedFile);
 
       try {
-        const response = await fetch("http://localhost:8000/api/reading", {
+        const response = await fetch("api/reading", {
           method: "POST",
           body: formData,
         });

@@ -12,7 +12,7 @@ export const useRegister = () => {
     // console.log(firstName, lastName, email, password, mobileNo, "user register");
     setIsLoading(true);
     setError(null);
-    const response = await fetch("http://localhost:8000/api/user/register", {
+    const response = await fetch("api/user/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({firstName, lastName, email, password,mobileNo }),

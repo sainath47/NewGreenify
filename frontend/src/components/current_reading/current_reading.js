@@ -31,7 +31,7 @@ const Reading = () => {
       let ReadAllReadings = false;
       if (permissions.includes("ReadAllReadings")) ReadAllReadings = true;
       // Fetch data from the API
-      const url = `http://localhost:8000/api/reading?ReadAllReadings=${ReadAllReadings}&email=${email}`;
+      const url = `api/reading?ReadAllReadings=${ReadAllReadings}&email=${email}`;
 setLoading(true)
       const response = await fetch(url);
 
@@ -101,7 +101,7 @@ setLoading(true)
 
       // console.log(sD, eD, 'startDate', 'endDate'); // Output: "6/4/2023"
       const response =
-        await fetch(`http://localhost:8000/api/reading?startDate=${sD}&endDate=${eD}&houseNo=${houseNo}&blockNo=${blockNo}&meterSNo=${meterSNo}
+        await fetch(`api/reading?startDate=${sD}&endDate=${eD}&houseNo=${houseNo}&blockNo=${blockNo}&meterSNo=${meterSNo}
       `);
       const data = await response.json();
       console.log(data, "data after search");

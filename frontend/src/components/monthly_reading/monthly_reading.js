@@ -10,7 +10,7 @@ const Monthly_Reading = () => {
   const fetchData = async () => {
     try {
       // Fetch data from the API
-      const response = await fetch("http://localhost:8000/api/reading");
+      const response = await fetch("api/reading");
       const data = await response.json();
 
       // Set the fetched data to the component state
