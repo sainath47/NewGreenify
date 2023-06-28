@@ -58,7 +58,7 @@ const App = () => {
             <Route
               path="/page"
               exact
-              element={user ? <Page /> : <Navigate to="/page" />}
+              element={user ? <Page /> : <Navigate to="/login" />}
             />
             <Route
               path="/login"
