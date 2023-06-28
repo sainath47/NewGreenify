@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user.routes')
 const readingRoutes = require('./routes/reading.routes')
+const readingsRoutes = require('./routes/readings.routes')
 const roleRoutes = require('./routes/role.routes')
 
 require('dotenv').config();
@@ -26,6 +27,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
   app.use("/api/user", userRoutes);
   app.use("/api/reading",readingRoutes );
+  app.use("/api/readings",readingsRoutes );
 app.use("/api/role", roleRoutes)
 
 const port = process.env.PORT
