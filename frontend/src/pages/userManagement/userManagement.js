@@ -138,7 +138,9 @@ const UserManagement = () => {
     user?.permissions?.includes("AddReadings") ?? false;
   return (
     <div style={{ height: "78vh", width: "100%" }}>
-         <DataGrid
+
+      
+         {/* <DataGrid
           getRowId={(row) => row["_id"]}
           rows={rows}
           columns={columns}
@@ -150,7 +152,7 @@ const UserManagement = () => {
           pageSizeOptions={[5, 10]}
           checkboxSelection
         />
-          {loading && <div>Loading...</div>}
+          {loading && <div>Loading...</div>} */}
     </div>
   );
 };

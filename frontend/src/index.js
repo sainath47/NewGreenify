@@ -17,8 +17,7 @@ root.render(
     <AuthContextProvider>
         <Router>
         <App/>
-        </Router>
-         
+        </Router>        
     </AuthContextProvider>
   
 )

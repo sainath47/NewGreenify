@@ -8,6 +8,8 @@ const readingsRoutes = require('./routes/readings.routes')
 const roleRoutes = require('./routes/role.routes')
 const path = require('path');
 // const __dirname = path.dirname("")
+//the above supposed to be commented as the __dirname is already declared below
+
 const buildPath = path.join(__dirname, "../frontend/build")
 
 require('dotenv').config();
